@@ -4,6 +4,7 @@ B:  .word 25
 C:  .word 242
 FF: .word 2042
 S:  .word 0
+    
     .text
 main:
     lw $t0,A

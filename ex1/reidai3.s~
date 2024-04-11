@@ -1,0 +1,8 @@
+    .data
+N:      .word 9
+ONE:    .word 1
+S:      .word 0
+
+    .text
+main:
+    
