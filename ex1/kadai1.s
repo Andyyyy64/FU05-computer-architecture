@@ -8,12 +8,11 @@ S:  .word 0
 main:
     lw $t0,A
     lw $t1,B
-    lw $t3,C
-    lw $t4, FF
-    lw $t5, S
-    add $t0, $t0, $t1
-    sub $t3, $t0, $t3
-    or $t5, $t3, $t4
-    sw $t5, S
+    lw $t2,C
+    lw $t3,FF
+    add $t4,$t0,$t1 #t4 = A + B
+    sub $t5,$t4,$t2 #t5 = t4 - C
+    or $t6,$t5,$t3 #t6 = t5 | FF
+    sw $t6,S
 exit:    beq, $0, $0, exit
     
