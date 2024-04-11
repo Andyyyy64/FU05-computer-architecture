@@ -2,7 +2,7 @@
 A:  .word 325
 B:  .word 25
 C:  .word 242
-FF: .word 2042
+FF: .word 2024
 S:  .word 0
     
     .text
