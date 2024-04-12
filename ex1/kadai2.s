@@ -10,7 +10,7 @@ A:
 	.word 30
 	.word 21    # A[8] = 21
 ADDRESS_A:
-    .word 268500992 #00005000 の 10 進表現
+    .word 20480 #00005000 の 10 進表現
 N:
     .word 9     # The length of Array
 S:
@@ -50,8 +50,10 @@ subfunc:
     or $t3, $0, $0
     add $t5, $t5, $t2       # i++(is array so +4byte)
     beq $0, $0, loop        # go back to loop
+
 loopend:
     sw $t4, S
+
 exit:
     beq $0, $0, exit
     
