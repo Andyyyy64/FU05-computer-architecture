@@ -10,7 +10,7 @@ A:
 	.word 30
 	.word 21    # A[8] = 21
 ADDRESS_A:
-    .word 268500992 #00005000 の 10 進表現
+    .word 20480 #00005000 の 10 進表現
 N:
     .word 9     # The length of Array
 S:
