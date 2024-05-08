@@ -1,0 +1,44 @@
+// text segment
+Mem.cell['h00000000] = 32'h08000400;   // j 0x1000
+
+Mem.cell['h00001000] = 32'h00004025;   // or $8, $0, $0                   ; 25: or $t0, $0, $0          # i = 0
+Mem.cell['h00001004] = 32'h8c095028;   // lw $9, 20520($0) [N]            ; 26: lw $t1, N
+Mem.cell['h00001008] = 32'h8c0a5034;   // lw $10, 20532($0) [FOUR]        ; 27: lw $t2, FOUR
+Mem.cell['h0000100c] = 32'h00005825;   // or $11, $0, $0                  ; 28: or $t3, $0, $0          # if ev 0, if odd 1, init 0
+Mem.cell['h00001010] = 32'h00006025;   // or $12, $0, $0                  ; 29: or $t4, $0, $0          # load result register
+Mem.cell['h00001014] = 32'h8c0d5024;   // lw $13, 20516($0) [ADDRESS_A]   ; 30: lw $t5, ADDRESS_A       # load array's addres
+Mem.cell['h00001018] = 32'h8c0e5030;   // lw $14, 20528($0) [ONE]         ; 31: lw $t6, ONE             # load constant 1
+Mem.cell['h0000101c] = 32'h1109000e;   // beq $8, $9, 56 [loopend-0x0000101c]; 34: beq $t0, $t1, loopend   # if i == n goto loopend
+Mem.cell['h00001020] = 32'h010e4020;   // add $8, $8, $14                 ; 35: add $t0, $t0, $t6       # i++
+Mem.cell['h00001024] = 32'h11600002;   // beq $11, $0, 8 [addfunc-0x00001024]; 36: beq $t3, $0, addfunc    # if i % 2 == 0 goto add
+Mem.cell['h00001028] = 32'h116e0006;   // beq $11, $14, 24 [subfunc-0x00001028]; 37: beq $t3, $t6, subfunc    # else goto sub
+Mem.cell['h0000102c] = 32'h1000fffb;   // beq $0, $0, -20 [loop-0x0000102c]; 38: beq $0, $0, loop
+Mem.cell['h00001030] = 32'h8daf0000;   // lw $15, 0($13)                  ; 41: lw $t7, 0($t5)
+Mem.cell['h00001034] = 32'h018f6020;   // add $12, $12, $15               ; 42: add $t4, $t4, $t7       # s += A[i]
+Mem.cell['h00001038] = 32'h8c0b5030;   // lw $11, 20528($0) [ONE]         ; 43: lw $t3, ONE
+Mem.cell['h0000103c] = 32'h01aa6820;   // add $13, $13, $10               ; 44: add $t5, $t5, $t2       # i++(is array so +4byte)
+Mem.cell['h00001040] = 32'h1000fff6;   // beq $0, $0, -40 [loop-0x00001040]; 45: beq $0, $0 loop         # go back to loop
+Mem.cell['h00001044] = 32'h8daf0000;   // lw $15, 0($13)                  ; 48: lw $t7, 0($t5)
+Mem.cell['h00001048] = 32'h018f6022;   // sub $12, $12, $15               ; 49: sub $t4, $t4, $t7       # s -= A[i]
+Mem.cell['h0000104c] = 32'h00005825;   // or $11, $0, $0                  ; 50: or $t3, $0, $0
+Mem.cell['h00001050] = 32'h01aa6820;   // add $13, $13, $10               ; 51: add $t5, $t5, $t2       # i++(is array so +4byte)
+Mem.cell['h00001054] = 32'h1000fff1;   // beq $0, $0, -60 [loop-0x00001054]; 52: beq $0, $0, loop        # go back to loop
+Mem.cell['h00001058] = 32'hac0c502c;   // sw $12, 20524($0) [S]           ; 54: sw $t4, S
+Mem.cell['h0000105c] = 32'h1000ffff;   // beq $0, $0, -4 [exit-0x0000105c]; 56: beq $0, $0, exit
+
+// data segment
+Mem.cell['h00005000] = 32'h00000020;
+Mem.cell['h00005004] = 32'h0000001c;
+Mem.cell['h00005008] = 32'h00000031;
+Mem.cell['h0000500c] = 32'h00000005;
+Mem.cell['h00005010] = 32'h00000043;
+Mem.cell['h00005014] = 32'h0000000a;
+Mem.cell['h00005018] = 32'h00000008;
+Mem.cell['h0000501c] = 32'h0000001e;
+Mem.cell['h00005020] = 32'h00000015;
+Mem.cell['h00005024] = 32'h00005000;
+Mem.cell['h00005028] = 32'h00000009;
+Mem.cell['h0000502c] = 32'h00000000;
+Mem.cell['h00005030] = 32'h00000001;
+Mem.cell['h00005034] = 32'h00000004;
+

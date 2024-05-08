@@ -1,0 +1,14 @@
+// text segment
+Mem.cell['h00000000] = 32'h08000400;   // j 0x1000
+
+Mem.cell['h00001000] = 32'h8c085000;   // lw $8, 20480($0) [A]            ; 6: lw $t0, A
+Mem.cell['h00001004] = 32'h8c095004;   // lw $9, 20484($0) [B]            ; 7: lw $t1, B
+Mem.cell['h00001008] = 32'h01095022;   // sub $10, $8, $9                 ; 8: sub $t2, $t0, $t1  
+Mem.cell['h0000100c] = 32'hac0a5008;   // sw $10, 20488($0) [C]           ; 9: sw $t2, C
+Mem.cell['h00001010] = 32'h1000ffff;   // beq $0, $0, -4 [exit-0x00001010]; 10: beq $0, $0, exit
+
+// data segment
+Mem.cell['h00005000] = 32'h0000002f;
+Mem.cell['h00005004] = 32'h0000013a;
+Mem.cell['h00005008] = 32'h00000000;
+
