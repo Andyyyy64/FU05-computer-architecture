@@ -1,0 +1,29 @@
+// text segment
+Mem.cell['h00000000] = 32'h100003FE; // beq $0, $0, 1022 
+
+Mem.cell['h00001000] = 32'h00004025;   // or $8, $0, $0                   ; 8: or      $t0,    $0,     $0      # i = 0
+Mem.cell['h00001004] = 32'h34090010;   // ori $9, $0, 16                  ; 9: or      $t1,    $0,     16      # n = 16
+Mem.cell['h00001008] = 32'h00005025;   // or $10, $0, $0                  ; 10: or      $t2,    $0,     $0      # result = 0
+Mem.cell['h0000100c] = 32'h340b0001;   // ori $11, $0, 1                  ; 11: or      $t3,    $0,     1       # x1 = 1 (初期値)
+Mem.cell['h00001010] = 32'h00006025;   // or $12, $0, $0                  ; 12: or      $t4,    $0,     $0      # x2 = 0
+Mem.cell['h00001014] = 32'h00006825;   // or $13, $0, $0                  ; 13: or      $t5,    $0,     $0      # flag = 0
+Mem.cell['h00001018] = 32'h8c0e5000;   // lw $14, 20480($0) [A]           ; 14: lw      $t6,    A               # load A
+Mem.cell['h0000101c] = 32'h8c0f5004;   // lw $15, 20484($0) [B]           ; 15: lw      $t7,    B               # load B
+Mem.cell['h00001020] = 32'h11090009;   // beq $8, $9, 36 [loopend-0x00001020]; 18: beq     $t0,    $t1,    loopend # if i == n goto loopend
+Mem.cell['h00001024] = 32'h01eb6024;   // and $12, $15, $11               ; 19: and     $t4,    $t7,    $t3     # x2 = B & x1
+Mem.cell['h00001028] = 32'h298d0001;   // slti $13, $12, 1                ; 20: slti    $t5,    $t4,    1       # if x2 == 0 ? 1 : 0
+Mem.cell['h0000102c] = 32'h11a00004;   // beq $13, $0, 16 [addC-0x0000102c]; 21: beq     $t5,    $0,     addC    # if flag == 0 goto addC
+Mem.cell['h00001030] = 32'h01ce7020;   // add $14, $14, $14               ; 24: add     $t6,    $t6,    $t6     # A = A + A (shift 1bit left)
+Mem.cell['h00001034] = 32'h016b5820;   // add $11, $11, $11               ; 25: add     $t3,    $t3,    $t3     # x1 = x1 + x1 (shift 1bit left)
+Mem.cell['h00001038] = 32'h21080001;   // addi $8, $8, 1                  ; 26: addi    $t0,    $t0,    1       # i++
+Mem.cell['h0000103c] = 32'h08000408;   // j 0x00001020 [loop]             ; 27: j       loop                    # goback loop
+Mem.cell['h00001040] = 32'h014e5020;   // add $10, $10, $14               ; 30: add     $t2,    $t2,    $t6     # C = C + A
+Mem.cell['h00001044] = 32'h0800040c;   // j 0x00001030 [left]             ; 31: j       left
+Mem.cell['h00001048] = 32'hac0a5008;   // sw $10, 20488($0) [C]           ; 34: sw      $t2,    C
+Mem.cell['h0000104c] = 32'h08000413;   // j 0x0000104c [exit]             ; 36: j       exit
+
+// data segment
+Mem.cell['h00005000] = 32'h00002628;
+Mem.cell['h00005004] = 32'h00001d20;
+Mem.cell['h00005008] = 32'h00000000;
+

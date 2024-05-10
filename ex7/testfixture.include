@@ -1,0 +1,64 @@
+// text segment
+Mem.cell['h00000000] = 32'h08000400;   // j 0x1000
+
+Mem.cell['h00001000] = 32'h8c095000;   // lw $9, 20480($0) [A]            ; 23: lw   $t1, A		#  lw のテスト
+Mem.cell['h00001004] = 32'h8c0a5004;   // lw $10, 20484($0) [B]           ; 24: lw   $t2, B		#  lw のテスト
+Mem.cell['h00001008] = 32'h8c0b5008;   // lw $11, 20488($0) [C]           ; 25: lw   $t3, C		#  lw のテスト
+Mem.cell['h0000100c] = 32'hac09500c;   // sw $9, 20492($0) [SW_RSLT]      ; 26: sw   $t1, SW_RSLT		#  sw のテスト (期待結果 = 0x335e) 
+Mem.cell['h00001010] = 32'h012a6020;   // add $12, $9, $10                ; 28: add  $t4, $t1, $t2		#  add のテスト 
+Mem.cell['h00001014] = 32'hac0c5010;   // sw $12, 20496($0) [ADD_RSLT]    ; 29: sw   $t4, ADD_RSLT	#  期待結果 = 0x407f
+Mem.cell['h00001018] = 32'h012a6822;   // sub $13, $9, $10                ; 31: sub  $t5, $t1, $t2         #  sub のテスト 
+Mem.cell['h0000101c] = 32'hac0d5014;   // sw $13, 20500($0) [SUB_RSLT]    ; 32: sw   $t5, SUB_RSLT	#  期待結果 = 0x263d
+Mem.cell['h00001020] = 32'h212e0100;   // addi $14, $9, 256               ; 34: addi $t6, $t1, 0x100     #  addi のテスト 
+Mem.cell['h00001024] = 32'hac0e5018;   // sw $14, 20504($0) [ADDI_RSLT]   ; 35: sw   $t6, ADDI_RSLT	#  期待結果 = 0x345e
+Mem.cell['h00001028] = 32'h012a7824;   // and $15, $9, $10                ; 37: and  $t7, $t1, $t2        #  and のテスト 
+Mem.cell['h0000102c] = 32'hac0f501c;   // sw $15, 20508($0) [AND_RSLT]    ; 38: sw   $t7, AND_RSLT	#  期待結果 = 0x100
+Mem.cell['h00001030] = 32'h012ac025;   // or $24, $9, $10                 ; 40: or   $t8, $t1, $t2        #  or のテスト 
+Mem.cell['h00001034] = 32'hac185020;   // sw $24, 20512($0) [OR_RSLT]     ; 41: sw   $t8, OR_RSLT	#  期待結果 = 0x3f7f
+Mem.cell['h00001038] = 32'h313901ff;   // andi $25, $9, 511               ; 43: andi $t9, $t1, 0x1ff     #  andi のテスト
+Mem.cell['h0000103c] = 32'hac195024;   // sw $25, 20516($0) [ANDI_RSLT]   ; 44: sw   $t9, ANDI_RSLT	#  期待結果 = 0x15e
+Mem.cell['h00001040] = 32'h352c01ff;   // ori $12, $9, 511                ; 46: ori  $t4, $t1, 0x1ff	#  ori のテスト
+Mem.cell['h00001044] = 32'hac0c5028;   // sw $12, 20520($0) [ORI_RSLT]    ; 47: sw   $t4, ORI_RSLT	#  期待結果 = 0x33ff
+Mem.cell['h00001048] = 32'h340d0001;   // ori $13, $0, 1                  ; 49: ori  $t5, $0, 1		#  j のテストのための初期設定
+Mem.cell['h0000104c] = 32'h08000415;   // j 0x00001054 [skip1]            ; 50: j skip1
+Mem.cell['h00001050] = 32'h340d0000;   // ori $13, $0, 0                  ; 51: ori  $t5, $0, 0
+Mem.cell['h00001054] = 32'hac0d502c;   // sw $13, 20524($0) [J_RSLT]      ; 53: sw   $t5, J_RSLT	#  期待結果 = 1
+Mem.cell['h00001058] = 32'h340d0001;   // ori $13, $0, 1                  ; 55: ori  $t5, $0, 1        	#  beq のテストのための初期設定
+Mem.cell['h0000105c] = 32'h340f0002;   // ori $15, $0, 2                  ; 56: ori  $t7, $0, 2        	#  beq のテストのための初期設定
+Mem.cell['h00001060] = 32'h11af0001;   // beq $13, $15, 4 [skip2-0x00001060]; 57: beq  $t5, $t7, skip2    #  beq のテスト (not taken)
+Mem.cell['h00001064] = 32'h340f0003;   // ori $15, $0, 3                  ; 58: ori  $t7, $0, 3
+Mem.cell['h00001068] = 32'hac0f5030;   // sw $15, 20528($0) [BEQ_NT_RSLT] ; 60: sw   $t7, BEQ_NT_RSLT	#  期待結果 = 3
+Mem.cell['h0000106c] = 32'h340f0001;   // ori $15, $0, 1                  ; 62: ori  $t7, $0, 1
+Mem.cell['h00001070] = 32'h11af0001;   // beq $13, $15, 4 [skip3-0x00001070]; 63: beq  $t5, $t7, skip3    #  beq のテスト (taken)
+Mem.cell['h00001074] = 32'h340f0003;   // ori $15, $0, 3                  ; 64: ori  $t7, $0, 3
+Mem.cell['h00001078] = 32'hac0f5034;   // sw $15, 20532($0) [BEQ_T_RSLT]  ; 66: sw   $t7, BEQ_T_RSLT	#  期待結果 = 1
+Mem.cell['h0000107c] = 32'h012ac02a;   // slt $24, $9, $10                ; 68: slt  $t8, $t1, $t2        #  slt のテスト
+Mem.cell['h00001080] = 32'hac185038;   // sw $24, 20536($0) [SLT0_RSLT]   ; 69: sw   $t8, SLT0_RSLT	#  期待結果 = 0
+Mem.cell['h00001084] = 32'h0149c82a;   // slt $25, $10, $9                ; 70: slt  $t9, $t2, $t1        #
+Mem.cell['h00001088] = 32'hac19503c;   // sw $25, 20540($0) [SLT1_RSLT]   ; 71: sw   $t9, SLT1_RSLT	#  期待結果 = 1
+Mem.cell['h0000108c] = 32'h292c1000;   // slti $12, $9, 4096              ; 73: slti $t4, $t1, 0x1000    #  slti のテスト
+Mem.cell['h00001090] = 32'hac0c5040;   // sw $12, 20544($0) [SLTI0_RSLT]  ; 74: sw   $t4, SLTI0_RSLT	#  期待結果 = 0
+Mem.cell['h00001094] = 32'h292d5000;   // slti $13, $9, 20480             ; 75: slti $t5, $t1, 0x5000    #
+Mem.cell['h00001098] = 32'hac0d5044;   // sw $13, 20548($0) [SLTI1_RSLT]  ; 76: sw   $t5, SLTI1_RSLT   	#  期待結果 = 1
+Mem.cell['h0000109c] = 32'h08000427;   // j 0x0000109c [exit]             ; 78: j    exit
+
+// data segment
+Mem.cell['h00005000] = 32'h0000335e;
+Mem.cell['h00005004] = 32'h00000d21;
+Mem.cell['h00005008] = 32'h0000000c;
+Mem.cell['h0000500c] = 32'h00000000;
+Mem.cell['h00005010] = 32'h00000000;
+Mem.cell['h00005014] = 32'h00000000;
+Mem.cell['h00005018] = 32'h00000000;
+Mem.cell['h0000501c] = 32'h00000000;
+Mem.cell['h00005020] = 32'h00000000;
+Mem.cell['h00005024] = 32'h00000000;
+Mem.cell['h00005028] = 32'h00000000;
+Mem.cell['h0000502c] = 32'h00000000;
+Mem.cell['h00005030] = 32'h00000000;
+Mem.cell['h00005034] = 32'h00000000;
+Mem.cell['h00005038] = 32'h00000000;
+Mem.cell['h0000503c] = 32'h00000000;
+Mem.cell['h00005040] = 32'h00000000;
+Mem.cell['h00005044] = 32'h00000000;
+

@@ -60,4 +60,6 @@ B[8] = 00000091
 Simulation Results End
 Simulation complete via $finish(1) at time 20 US + 0
 ./testbench_CPU1_3.v:41 $finish;
-xcelium> 
+xcelium> ^C
+xcelium> exit
+TOOL:	xmxlmode	22.03-s005: Exiting on May 08, 2024 at 19:05:46 JST  (total: 00:05:12)
